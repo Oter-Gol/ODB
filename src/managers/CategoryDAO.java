@@ -90,13 +90,13 @@ public class CategoryDAO extends DAO<Category> {
 
     @Override
     protected HashSet<Category> getFromDatabase() throws SQLException {
-        HashSet<Category> discounts = new HashSet<Category>();
+        HashSet<Category> categories = new HashSet<Category>();
         ResultSet rs = statement.executeQuery("SELECT * FROM category");
         while (rs.next()) {
-            Category d = new Category(rs.getString(1));
+            Category d = new Category(rs.getString(2));
             d.setId(rs.getInt(1));
-            discounts.add(d);
+            categories.add(d);
         }
-        return discounts;
+        return categories;
     }
 }

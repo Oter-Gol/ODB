@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="audao-1.7">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/audao-1.7.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/Downloads/audao-1.7.jar!/resources/java" />
+    </SOURCES>
+  </library>
+</component>
