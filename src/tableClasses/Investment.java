@@ -5,12 +5,12 @@ package tableClasses;
  */
 public class Investment {
     private Profile profile;
-    private Object object;
+    private OObject OObject;
     private String contractNumber;
 
-    public Investment(Profile profile, Object object, String contractNumber) {
+    public Investment(Profile profile, OObject OObject, String contractNumber) {
         this.profile = profile;
-        this.object = object;
+        this.OObject = OObject;
         this.contractNumber = contractNumber;
     }
 
@@ -22,12 +22,12 @@ public class Investment {
         this.profile = profile;
     }
 
-    public Object getObject() {
-        return object;
+    public OObject getOObject() {
+        return OObject;
     }
 
-    public void setObject(Object object) {
-        this.object = object;
+    public void setOObject(OObject OObject) {
+        this.OObject = OObject;
     }
 
     public String getContractNumber() {
