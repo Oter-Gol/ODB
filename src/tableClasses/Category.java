@@ -1,10 +1,12 @@
 package tableClasses;
 
+import managers.AbstractEntity;
+
 /**
  * represent the tableClasses.Category table
  * Created by oleh on 25.11.14.
  */
-public class Category {
+public class Category extends AbstractEntity<Integer> {
     private String nameOfCategory;
 
     public Category(String nameOfCategory) {
