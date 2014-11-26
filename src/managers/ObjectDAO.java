@@ -63,7 +63,7 @@ public class ObjectDAO extends DAO<OObject> {
     public OObject update(OObject object) throws SQLException {
         if (object.getId() == -1)
             throw new IllegalStateException();
-        update.setString(1, object.getName());
+        update.setString(2, object.getName());
         update.setInt(5, object.getId());
         if (update.executeUpdate() != 1)
             throw new IllegalStateException();
