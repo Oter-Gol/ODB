@@ -5,6 +5,7 @@ import managers.AbstractEntity;
 import java.sql.Date;
 
 /**
+ * represent message table in the database
  * Created by oleh on 25.11.14.
  */
 public class Message extends AbstractEntity<Integer> {

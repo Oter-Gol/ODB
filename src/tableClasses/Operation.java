@@ -5,6 +5,7 @@ import managers.AbstractEntity;
 import java.sql.Date;
 
 /**
+ * represent operation table in the database
  * Created by oleh on 25.11.14.
  */
 public class Operation extends AbstractEntity<Integer> {

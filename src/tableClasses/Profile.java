@@ -3,6 +3,7 @@ package tableClasses;
 import managers.AbstractEntity;
 
 /**
+ * represent profile table in the database
  * Created by oleh on 25.11.14.
  */
 public class Profile extends AbstractEntity<Integer>{

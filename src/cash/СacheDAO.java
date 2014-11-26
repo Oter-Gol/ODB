@@ -16,11 +16,11 @@ import java.util.HashSet;
  * @param <K> special types of keys
  * @param <V> special types of cash values
  */
-public class CashDAO<K, V extends AbstractEntity<K>> extends DAO<V> {
+public class СacheDAO<K, V extends AbstractEntity<K>> extends DAO<V> {
 
     private HashMap<K, V> cash;
 
-    public CashDAO(HashSet<V> cash) {
+    public СacheDAO(HashSet<V> cash) {
         this.cash = new HashMap<K, V>();
         cash.forEach(v -> this.cash.put(v.getId(), v));
     }

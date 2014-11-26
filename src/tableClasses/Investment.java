@@ -3,6 +3,7 @@ package tableClasses;
 import managers.AbstractEntity;
 
 /**
+ * represent investment table in the database
  * Created by oleh on 25.11.14.
  */
 public class Investment extends AbstractEntity<Integer>{
