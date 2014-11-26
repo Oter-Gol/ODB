@@ -28,7 +28,7 @@ public class CategoryDAO extends DAO<Category> {
             this.create = connection.prepareStatement("INSERT INTO category"
                     + "(nameOfCategory)"
                     + "VALUES(?)");
-            this.update = connection.prepareStatement("UPDATE cateroy SET "
+            this.update = connection.prepareStatement("UPDATE category SET "
                     + "nameOfCategory = ? "
                     + "WHERE id = ?");
             this.delete = connection.prepareStatement("DELETE FROM category WHERE id = ?");
