@@ -8,16 +8,29 @@ import managers.AbstractEntity;
 public class OObject extends AbstractEntity<Integer> {
     private String name;
 
+    /**
+     * constructor
+     *
+     * @param name name of the object
+     */
     public OObject(String name) {
         super();
         setId(-1);
         this.name = name;
     }
 
+    /**
+     * getter for name
+     * @return name of the object
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * setter for name
+     * @param name which name to set
+     */
     public void setName(String name) {
         this.name = name;
     }

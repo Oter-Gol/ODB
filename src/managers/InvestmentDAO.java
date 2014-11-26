@@ -104,7 +104,7 @@ public class InvestmentDAO extends DAO<Investment> {
         HashSet<Investment> investments = new HashSet<Investment>();
         ResultSet rs = statement.executeQuery("SELECT * FROM investment");
         while (rs.next()) {
-            Investment d = new Investment(rs.getString(2), oObjectDAO.getById(rs.getInt(3)), profileDAO.getById(rs.getInt(4)) );
+            Investment d = new Investment(profileDAO.getById(rs.getInt(4)), oObjectDAO.getById(rs.getInt(3)),  rs.getString(2));
             d.setId(rs.getInt(1));
             investments.add(d);
         }

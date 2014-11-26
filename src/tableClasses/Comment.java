@@ -51,18 +51,34 @@ public class Comment extends AbstractEntity<Integer> {
         this.dateOfChange = dateOfChange;
     }
 
+    /**
+     * get the time of change of the comment
+     * @return timeOfChange
+     */
     public String getTimeOfChange() {
         return timeOfChange;
     }
 
+    /**
+     * set the time of change of the comment
+     * @param timeOfChange which to set
+     */
     public void setTimeOfChange(String timeOfChange) {
         this.timeOfChange = timeOfChange;
     }
 
+    /**
+     * get the text in the comment
+     * @return textOfComment
+     */
     public String getTextOfComment() {
         return textOfComment;
     }
 
+    /**
+     * set the text of the comment
+     * @param textOfComment which to set to the field
+     */
     public void setTextOfComment(String textOfComment) {
         this.textOfComment = textOfComment;
     }
