@@ -8,6 +8,12 @@ public class Profile {
     private String password;
     private Category category;
 
+    public Profile(String login, String password, Category category) {
+        this.login = login;
+        this.password = password;
+        this.category = category;
+    }
+
     public String getLogin() {
         return login;
     }

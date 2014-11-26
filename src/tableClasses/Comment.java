@@ -10,6 +10,13 @@ public class Comment {
     private String timeOfChange;
     private String textOfComment;
 
+    public Comment(String branchOfForum, String dateOfChange, String timeOfChange, String textOfComment) {
+        this.branchOfForum = branchOfForum;
+        this.dateOfChange = dateOfChange;
+        this.timeOfChange = timeOfChange;
+        this.textOfComment = textOfComment;
+    }
+
     /**
      * get the String value of branchOfForum
      * @return branchOfForum
