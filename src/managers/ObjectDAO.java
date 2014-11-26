@@ -20,6 +20,10 @@ public class ObjectDAO extends DAO<OObject> {
 
     private CashDAO<Integer, OObject> cash;
 
+    /**
+     * Constructor for object
+     * @param connection is a pointer to connection to DB
+     */
     public ObjectDAO(Connection connection) {
         super();
         this.connection = connection;
@@ -47,7 +51,7 @@ public class ObjectDAO extends DAO<OObject> {
 
     @Override
     public OObject create(OObject object) throws SQLException {
-        create.setString(1, object.getId()));
+        create.setInt(1, object.getId());
         create.setString(2, object.getName());
         if (create.executeUpdate() != 1) {
             throw new IllegalStateException();

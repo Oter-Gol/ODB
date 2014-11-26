@@ -23,6 +23,13 @@ public class ProfileDAO extends DAO<Profile> {
 
     private CategoryDAO  categoryDAO;
 
+    /**
+     * Constructor for object
+     * @param connection is a pointer to connection to DB
+     *
+     * @param connection
+     * @param categoryDAO
+     */
     public ProfileDAO(Connection connection, CategoryDAO categoryDAO) {
         super();
 

@@ -20,6 +20,10 @@ public class CategoryDAO extends DAO<Category> {
 
     private CashDAO<Integer, Category> cash;
 
+    /**
+     * Constructor for category
+     * @param connection is a pointer for our connection
+     */
     public CategoryDAO(Connection connection ) {
         super();
         this.connection = connection;
@@ -28,7 +32,7 @@ public class CategoryDAO extends DAO<Category> {
             this.create = connection.prepareStatement("INSERT INTO category"
                     + "(nameOfCategory)"
                     + "VALUES(?)");
-            this.update = connection.prepareStatement("UPDATE cateroy SET "
+            this.update = connection.prepareStatement("UPDATE category SET "
                     + "nameOfCategory = ? "
                     + "WHERE id = ?");
             this.delete = connection.prepareStatement("DELETE FROM category WHERE id = ?");
@@ -39,12 +43,24 @@ public class CategoryDAO extends DAO<Category> {
         }
     }
 
+    /**
+     * Getting method for already read categories
+     * @param condition
+     * @return HashSet of Categories
+     * @throws SQLException if happened something wrong
+     */
     @Override
     public HashSet<Category> get(Condition<Category> condition)
             throws SQLException {
         return cash.get(condition);
     }
 
+    /**
+     *
+     * @param object
+     * @return
+     * @throws SQLException
+     */
     @Override
     public Category create(Category object) throws SQLException {
         create.setString(2, object.getNameOfCategory());

@@ -23,6 +23,10 @@ public class InvestmentDAO extends DAO<Investment> {
     private ProfileDAO profileDAO;
     private CashDAO<Integer, Investment> cash;
 
+    /**
+     * Constructor for investment
+     * @param connection is a pointer for our connection
+     */
     public InvestmentDAO(Connection connection, ObjectDAO objectDAO, ProfileDAO profileDAO ) {
         super();
         this.connection = connection;

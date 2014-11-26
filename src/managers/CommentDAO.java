@@ -20,6 +20,10 @@ public class CommentDAO extends DAO<Comment> {
 
     private CashDAO<Integer, Comment> cash;
 
+    /**
+     * Constructor for comment
+     * @param connection is a pointer for our connection
+     */
     public CommentDAO(Connection connection ) {
         super();
         this.connection = connection;

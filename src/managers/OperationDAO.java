@@ -22,6 +22,11 @@ public class OperationDAO extends DAO<Operation> {
 
     private ProfileDAO profileDAO;
 
+    /**
+     * Constructor for operation
+     * @param connection is a pointer to connection to DB
+     * @param profileDAO points to ProfileDAO of the user
+     */
     public OperationDAO(Connection connection, ProfileDAO profileDAO) {
         super();
 
