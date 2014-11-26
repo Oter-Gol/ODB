@@ -11,9 +11,9 @@ public class Connector {
     private Connection connection;
 
     public Connector() {
-        String url = "jdbc:mysql://localhost/";
+        String url = "jdbc:mysql://host-176-36-112-223.la.net.ua/";
         String db = "ODB_Lab4";
-        String login = "root";
+        String login = "oter";
         String password = "12345";
         this.driver = "com.mysql.jdbc.Driver";
         this.config = url + db + "?user=" + login + "&password=" + password;
