@@ -2,9 +2,8 @@ package main;
 
 
 import access.Connector;
-import access.MySQLAccess;
+import access.DAOFactory;
 import managers.CategoryDAO;
-import tableClasses.Category;
 
 /**
  * Created by oleh on 19.11.14.
@@ -12,11 +11,7 @@ import tableClasses.Category;
 public class Main {
     public static void main(String[] args) throws Exception {
 
-        Connector connector = new Connector();
-        CategoryDAO categoryDAO = new CategoryDAO(connector.getConnection());
-
-        System.out.println( "Lol");
-
+        DAOFactory daoFactory = new DAOFactory();
 
     }
 }
