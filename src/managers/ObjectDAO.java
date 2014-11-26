@@ -3,7 +3,7 @@ package managers;
 import abstractions.Condition;
 import abstractions.DAO;
 import cash.CashDAO;
-import tableClasses.Category;
+import tableClasses.OObject;
 
 import java.sql.*;
 import java.util.HashSet;
@@ -11,27 +11,27 @@ import java.util.HashSet;
 /**
  * Created by oleh on 26.11.14.
  */
-public class CategoryDAO extends DAO<Category> {
+public class ObjectDAO extends DAO<OObject> {
     private Connection connection;
     private Statement statement;
     private PreparedStatement update;
     private PreparedStatement create;
     private PreparedStatement delete;
 
-    private CashDAO<Integer, Category> cash;
+    private CashDAO<Integer, OObject> cash;
 
-    public CategoryDAO(Connection connection ) {
+    public ObjectDAO(Connection connection) {
         super();
         this.connection = connection;
         try {
             this.statement = connection.createStatement();
-            this.create = connection.prepareStatement("INSERT INTO category"
-                    + "(nameOfCategory)"
+            this.create = connection.prepareStatement("INSERT INTO object"
+                    + "(name)"
                     + "VALUES(?)");
-            this.update = connection.prepareStatement("UPDATE cateroy SET "
-                    + "nameOfCategory = ? "
+            this.update = connection.prepareStatement("UPDATE object SET "
+                    + "name = ?"
                     + "WHERE id = ?");
-            this.delete = connection.prepareStatement("DELETE FROM category WHERE id = ?");
+            this.delete = connection.prepareStatement("DELETE FROM object WHERE id = ?");
             //load into cash
             this.cash = new CashDAO<>(getFromDatabase());
         } catch (SQLException e) {
@@ -40,14 +40,14 @@ public class CategoryDAO extends DAO<Category> {
     }
 
     @Override
-    public HashSet<Category> get(Condition<Category> condition)
+    public HashSet<OObject> get(Condition<OObject> condition)
             throws SQLException {
         return cash.get(condition);
     }
 
     @Override
-    public Category create(Category object) throws SQLException {
-        create.setString(1, object.getNameOfCategory());
+    public OObject create(OObject object) throws SQLException {
+        create.setString(1, object.getName());
         if (create.executeUpdate() != 1) {
             throw new IllegalStateException();
         }
@@ -60,10 +60,10 @@ public class CategoryDAO extends DAO<Category> {
     }
 
     @Override
-    public Category update(Category object) throws SQLException {
+    public OObject update(OObject object) throws SQLException {
         if (object.getId() == -1)
             throw new IllegalStateException();
-        update.setString(1, object.getNameOfCategory());
+        update.setString(1, object.getName());
         update.setInt(5, object.getId());
         if (update.executeUpdate() != 1)
             throw new IllegalStateException();
@@ -73,7 +73,7 @@ public class CategoryDAO extends DAO<Category> {
     }
 
     @Override
-    public boolean delete(Category object) throws SQLException {
+    public boolean delete(OObject object) throws SQLException {
         if (object.getId() == -1)
             throw new IllegalStateException();
         delete.setInt(1, object.getId());
@@ -84,19 +84,19 @@ public class CategoryDAO extends DAO<Category> {
     }
 
     @Override
-    public Category getById(Object id) throws SQLException {
+    public OObject getById(Object id) throws SQLException {
         return cash.getById(id);
     }
 
     @Override
-    protected HashSet<Category> getFromDatabase() throws SQLException {
-        HashSet<Category> categories = new HashSet<Category>();
-        ResultSet rs = statement.executeQuery("SELECT * FROM category");
+    protected HashSet<OObject> getFromDatabase() throws SQLException {
+        HashSet<OObject> objects = new HashSet<OObject>();
+        ResultSet rs = statement.executeQuery("SELECT * FROM object");
         while (rs.next()) {
-            Category d = new Category(rs.getString(2));
+            OObject d = new OObject(rs.getString(2));
             d.setId(rs.getInt(1));
-            categories.add(d);
+            objects.add(d);
         }
-        return categories;
+        return objects;
     }
 }

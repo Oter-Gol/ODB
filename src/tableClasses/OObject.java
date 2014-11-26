@@ -1,12 +1,14 @@
 package tableClasses;
 
+import managers.AbstractEntity;
+
 /**
  * Created by oleh on 25.11.14.
  */
-public class Object {
+public class OObject extends AbstractEntity<Integer> {
     private String name;
 
-    public Object(String name) {
+    public OObject(String name) {
         this.name = name;
     }
 
