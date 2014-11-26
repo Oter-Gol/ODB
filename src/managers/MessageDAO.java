@@ -105,8 +105,8 @@ public class MessageDAO extends DAO<Message> {
         HashSet<Message> messages = new HashSet<Message>();
         ResultSet rs = statement.executeQuery("SELECT * FROM message");
         while (rs.next()) {
-            Message d = new Message(rs.getString(2), rs.getDate(3), rs.getString(4), profileDAO.getById(rs.getInt(5)),
-                                    profileDAO.getByID(rs.getInt(6)));
+            Message d = new Message(rs.getString(2), rs.getDate(3), rs.getString(4), profileDAOsend.getById(rs.getInt(5)),
+                                    profileDAOreceip.getById(rs.getInt(6)));
             d.setId(rs.getInt(1));
             messages.add(d);
         }
