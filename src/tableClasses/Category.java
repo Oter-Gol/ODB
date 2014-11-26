@@ -1,5 +1,7 @@
+package tableClasses;
+
 /**
- * represent the Category table
+ * represent the tableClasses.Category table
  * Created by oleh on 25.11.14.
  */
 public class Category {

@@ -1,3 +1,5 @@
+package tableClasses;
+
 /**
  * Created by oleh on 25.11.14.
  */

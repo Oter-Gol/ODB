@@ -1,3 +1,4 @@
+package tableClasses;
 
 import java.io.Closeable;
 import java.sql.*;
@@ -89,7 +90,7 @@ public class MySQLAccess {
                 System.out.println("Website: " + website);
                 System.out.println("Summary: " + summary);
                 System.out.println("Date: " + date);
-                System.out.println("Comment: " + comment);
+                System.out.println("tableClasses.Comment: " + comment);
             }
         }
 

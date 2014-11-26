@@ -1,3 +1,5 @@
+package tableClasses;
+
 /**
  * represent the comment table
  * Created by oleh on 25.11.14.
