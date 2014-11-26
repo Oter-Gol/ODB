@@ -2,13 +2,14 @@ package managers;
 
 import abstractions.Condition;
 import abstractions.DAO;
-import cash.CashDAO;
+import cash.СacheDAO;
 import tableClasses.Category;
 
 import java.sql.*;
 import java.util.HashSet;
 
 /**
+ * implements pattern DAO to Category Class
  * Created by oleh on 26.11.14.
  */
 public class CategoryDAO extends DAO<Category> {
@@ -18,7 +19,7 @@ public class CategoryDAO extends DAO<Category> {
     private PreparedStatement create;
     private PreparedStatement delete;
 
-    private CashDAO<Integer, Category> cash;
+    private СacheDAO<Integer, Category> cash;
 
     /**
      * Constructor for category
@@ -37,7 +38,7 @@ public class CategoryDAO extends DAO<Category> {
                     + "WHERE id = ?");
             this.delete = connection.prepareStatement("DELETE FROM category WHERE id = ?");
             //load into cash
-            this.cash = new CashDAO<>(getFromDatabase());
+            this.cash = new СacheDAO<>(getFromDatabase());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -46,7 +47,7 @@ public class CategoryDAO extends DAO<Category> {
     /**
      * Getting method for already read categories
      * @param condition
-     * @return HashSet of Categories
+     * @return HashSet of certain class
      * @throws SQLException if happened something wrong
      */
     @Override
@@ -56,9 +57,9 @@ public class CategoryDAO extends DAO<Category> {
     }
 
     /**
-     *
-     * @param object
-     * @return
+     * create a line with certain name
+     * @param object which to add to the table
+     * @return improved object
      * @throws SQLException
      */
     @Override
@@ -75,6 +76,13 @@ public class CategoryDAO extends DAO<Category> {
         return object;
     }
 
+    /**
+     * update the certain line in the table
+     *
+     * @param object what we add to the table instead of what we have
+     * @return improved object
+     * @throws SQLException
+     */
     @Override
     public Category update(Category object) throws SQLException {
         if (object.getId() == -1)
@@ -88,6 +96,13 @@ public class CategoryDAO extends DAO<Category> {
         return object;
     }
 
+    /**
+     * delete the object from the table
+     *
+     * @param object what to delete
+     * @return true if deleted
+     * @throws SQLException
+     */
     @Override
     public boolean delete(Category object) throws SQLException {
         if (object.getId() == -1)
@@ -99,11 +114,24 @@ public class CategoryDAO extends DAO<Category> {
         return cash.delete(object);
     }
 
+    /**
+     * get element by id
+     *
+     * @param id of the object
+     * @return the element due to it id
+     * @throws SQLException
+     */
     @Override
     public Category getById(Object id) throws SQLException {
         return cash.getById(id);
     }
 
+    /**
+     * get the elements from the data base
+     *
+     * @return HashSet of the certain class
+     * @throws SQLException
+     */
     @Override
     protected HashSet<Category> getFromDatabase() throws SQLException {
         HashSet<Category> categories = new HashSet<Category>();

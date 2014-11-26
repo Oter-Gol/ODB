@@ -2,14 +2,14 @@ package managers;
 
 import abstractions.Condition;
 import abstractions.DAO;
-import cash.CashDAO;
-import tableClasses.Operation;
+import cash.СacheDAO;
 import tableClasses.Profile;
 
 import java.sql.*;
 import java.util.HashSet;
 
 /**
+ * implements pattern DAO to Profile Class
  * Created by OTER on 11/26/2014.
  */
 public class ProfileDAO extends DAO<Profile> {
@@ -19,7 +19,7 @@ public class ProfileDAO extends DAO<Profile> {
     private PreparedStatement create;
     private PreparedStatement delete;
 
-    private CashDAO<Integer, Profile> cash;
+    private СacheDAO<Integer, Profile> cash;
 
     private CategoryDAO  categoryDAO;
 
@@ -27,8 +27,8 @@ public class ProfileDAO extends DAO<Profile> {
      * Constructor for object
      * @param connection is a pointer to connection to DB
      *
-     * @param connection
-     * @param categoryDAO
+     * @param connection to which we connect
+     * @param categoryDAO refers to the line in the table
      */
     public ProfileDAO(Connection connection, CategoryDAO categoryDAO) {
         super();
@@ -46,18 +46,30 @@ public class ProfileDAO extends DAO<Profile> {
                     + "WHERE id = ?");
             this.delete = connection.prepareStatement("DELETE FROM profile WHERE id = ?");
             //load into cash
-            this.cash = new CashDAO<>(getFromDatabase());
+            this.cash = new СacheDAO<>(getFromDatabase());
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Getting method for already read categories
+     * @param condition
+     * @return HashSet of certain class
+     * @throws SQLException if happened something wrong
+     */
     @Override
     public HashSet<Profile> get(Condition<Profile> condition)
             throws SQLException {
         return cash.get(condition);
     }
 
+    /**
+     * create a line with certain name
+     * @param object which to add to the table
+     * @return improved object
+     * @throws SQLException
+     */
     @Override
     public Profile create(Profile object) throws SQLException {
         create.setInt(1, object.getId());
@@ -76,6 +88,13 @@ public class ProfileDAO extends DAO<Profile> {
         return object;
     }
 
+    /**
+     * update the certain line in the table
+     *
+     * @param object what we add to the table instead of what we have
+     * @return improved object
+     * @throws SQLException
+     */
     @Override
     public Profile update(Profile object) throws SQLException {
         if (object.getId() == -1)
@@ -91,6 +110,13 @@ public class ProfileDAO extends DAO<Profile> {
         return object;
     }
 
+    /**
+     * delete the object from the table
+     *
+     * @param object what to delete
+     * @return true if deleted
+     * @throws SQLException
+     */
     @Override
     public boolean delete(Profile object) throws SQLException {
         if (object.getId() == -1)
@@ -102,14 +128,27 @@ public class ProfileDAO extends DAO<Profile> {
         return cash.delete(object);
     }
 
+    /**
+     * get element by id
+     *
+     * @param id of the object
+     * @return the element due to it id
+     * @throws SQLException
+     */
     @Override
     public Profile getById(Object id) throws SQLException {
         return cash.getById(id);
     }
 
+    /**
+     * get the elements from the data base
+     *
+     * @return HashSet of the certain class
+     * @throws SQLException
+     */
     @Override
     protected HashSet<Profile> getFromDatabase() throws SQLException {
-        HashSet<Profile> objects = new HashSet<Profile>();
+        HashSet<Profile> objects = new HashSet<>();
         ResultSet rs = statement.executeQuery("SELECT * FROM object");
         while (rs.next()) {
             Profile d = new Profile( rs.getString(2),rs.getString(3), categoryDAO.getById( rs.getInt(4) ) );

@@ -2,13 +2,14 @@ package managers;
 
 import abstractions.Condition;
 import abstractions.DAO;
-import cash.CashDAO;
+import cash.СacheDAO;
 import tableClasses.Comment;
 
 import java.sql.*;
 import java.util.HashSet;
 
 /**
+ * implements pattern DAO to Comment Class
  * Created by oleh on 26.11.14.
  */
 public class CommentDAO extends DAO<Comment> {
@@ -18,7 +19,7 @@ public class CommentDAO extends DAO<Comment> {
     private PreparedStatement create;
     private PreparedStatement delete;
 
-    private CashDAO<Integer, Comment> cash;
+    private СacheDAO<Integer, Comment> cash;
 
     /**
      * Constructor for comment
@@ -37,18 +38,30 @@ public class CommentDAO extends DAO<Comment> {
                     + "WHERE id = ?");
             this.delete = connection.prepareStatement("DELETE FROM comment WHERE id = ?");
             //load into cash
-            this.cash = new CashDAO<>(getFromDatabase());
+            this.cash = new СacheDAO<>(getFromDatabase());
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Getting method for already read categories
+     * @param condition
+     * @return HashSet of certain class
+     * @throws SQLException if happened something wrong
+     */
     @Override
     public HashSet<Comment> get(Condition<Comment> condition)
             throws SQLException {
         return cash.get(condition);
     }
 
+    /**
+     * create a line with certain name
+     * @param object which to add to the table
+     * @return improved object
+     * @throws SQLException
+     */
     @Override
     public Comment create(Comment object) throws SQLException {
         create.setString(2, object.getBranchOfForum());
@@ -66,6 +79,13 @@ public class CommentDAO extends DAO<Comment> {
         return object;
     }
 
+    /**
+     * update the certain line in the table
+     *
+     * @param object what we add to the table instead of what we have
+     * @return improved object
+     * @throws SQLException
+     */
     @Override
     public Comment update(Comment object) throws SQLException {
         if (object.getId() == -1)
@@ -82,6 +102,13 @@ public class CommentDAO extends DAO<Comment> {
         return object;
     }
 
+    /**
+     * delete the object from the table
+     *
+     * @param object what to delete
+     * @return true if deleted
+     * @throws SQLException
+     */
     @Override
     public boolean delete(Comment object) throws SQLException {
         if (object.getId() == -1)
@@ -93,11 +120,24 @@ public class CommentDAO extends DAO<Comment> {
         return cash.delete(object);
     }
 
+    /**
+     * get element by id
+     *
+     * @param id of the object
+     * @return the element due to it id
+     * @throws SQLException
+     */
     @Override
     public Comment getById(Object id) throws SQLException {
         return cash.getById(id);
     }
 
+    /**
+     * get the elements from the data base
+     *
+     * @return HashSet of the certain class
+     * @throws SQLException
+     */
     @Override
     protected HashSet<Comment> getFromDatabase() throws SQLException {
         HashSet<Comment> comments = new HashSet<Comment>();

@@ -2,13 +2,14 @@ package managers;
 
 import abstractions.Condition;
 import abstractions.DAO;
-import cash.CashDAO;
+import cash.СacheDAO;
 import tableClasses.Operation;
 
 import java.sql.*;
 import java.util.HashSet;
 
 /**
+ * implements pattern DAO to Operation Class
  * Created by OTER on 11/26/2014.
  */
 public class OperationDAO extends DAO<Operation> {
@@ -18,7 +19,7 @@ public class OperationDAO extends DAO<Operation> {
     private PreparedStatement create;
     private PreparedStatement delete;
 
-    private CashDAO<Integer, Operation> cash;
+    private СacheDAO<Integer, Operation> cash;
 
     private ProfileDAO profileDAO;
 
@@ -42,18 +43,30 @@ public class OperationDAO extends DAO<Operation> {
                     + "WHERE id = ?");
             this.delete = connection.prepareStatement("DELETE FROM operation WHERE id = ?");
             //load into cash
-            this.cash = new CashDAO<>(getFromDatabase());
+            this.cash = new СacheDAO<>(getFromDatabase());
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Getting method for already read categories
+     * @param condition
+     * @return HashSet of certain class
+     * @throws SQLException if happened something wrong
+     */
     @Override
     public HashSet<Operation> get(Condition<Operation> condition)
             throws SQLException {
         return cash.get(condition);
     }
 
+    /**
+     * create a line with certain name
+     * @param object which to add to the table
+     * @return improved object
+     * @throws SQLException
+     */
     @Override
     public Operation create(Operation object) throws SQLException {
         create.setString(4, object.getTypeOfOperation());
@@ -72,6 +85,13 @@ public class OperationDAO extends DAO<Operation> {
         return object;
     }
 
+    /**
+     * update the certain line in the table
+     *
+     * @param object what we add to the table instead of what we have
+     * @return improved object
+     * @throws SQLException
+     */
     @Override
     public Operation update(Operation object) throws SQLException {
         if (object.getId() == -1)
@@ -87,6 +107,13 @@ public class OperationDAO extends DAO<Operation> {
         return object;
     }
 
+    /**
+     * delete the object from the table
+     *
+     * @param object what to delete
+     * @return true if deleted
+     * @throws SQLException
+     */
     @Override
     public boolean delete(Operation object) throws SQLException {
         if (object.getId() == -1)
@@ -98,14 +125,27 @@ public class OperationDAO extends DAO<Operation> {
         return cash.delete(object);
     }
 
+    /**
+     * get element by id
+     *
+     * @param id of the object
+     * @return the element due to it id
+     * @throws SQLException
+     */
     @Override
     public Operation getById(Object id) throws SQLException {
         return cash.getById(id);
     }
 
+    /**
+     * get the elements from the data base
+     *
+     * @return HashSet of the certain class
+     * @throws SQLException
+     */
     @Override
     protected HashSet<Operation> getFromDatabase() throws SQLException {
-        HashSet<Operation> objects = new HashSet<Operation>();
+        HashSet<Operation> objects = new HashSet<>();
         ResultSet rs = statement.executeQuery("SELECT * FROM object");
         while (rs.next()) {
             Operation d = new Operation(rs.getString(2), rs.getInt(3), rs.getDate(4),  profileDAO.getById( rs.getInt(5)) );

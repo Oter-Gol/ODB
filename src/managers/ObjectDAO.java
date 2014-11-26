@@ -2,13 +2,14 @@ package managers;
 
 import abstractions.Condition;
 import abstractions.DAO;
-import cash.CashDAO;
+import cash.СacheDAO;
 import tableClasses.OObject;
 
 import java.sql.*;
 import java.util.HashSet;
 
 /**
+ * implements pattern DAO to OObject Class
  * Created by oleh on 26.11.14.
  */
 public class ObjectDAO extends DAO<OObject> {
@@ -18,7 +19,7 @@ public class ObjectDAO extends DAO<OObject> {
     private PreparedStatement create;
     private PreparedStatement delete;
 
-    private CashDAO<Integer, OObject> cash;
+    private СacheDAO<Integer, OObject> cash;
 
     /**
      * Constructor for object
@@ -37,18 +38,30 @@ public class ObjectDAO extends DAO<OObject> {
                     + "WHERE id = ?");
             this.delete = connection.prepareStatement("DELETE FROM object WHERE id = ?");
             //load into cash
-            this.cash = new CashDAO<>(getFromDatabase());
+            this.cash = new СacheDAO<>(getFromDatabase());
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Getting method for already read categories
+     * @param condition
+     * @return HashSet of certain class
+     * @throws SQLException if happened something wrong
+     */
     @Override
     public HashSet<OObject> get(Condition<OObject> condition)
             throws SQLException {
         return cash.get(condition);
     }
 
+    /**
+     * create a line with certain name
+     * @param object which to add to the table
+     * @return improved object
+     * @throws SQLException
+     */
     @Override
     public OObject create(OObject object) throws SQLException {
         create.setInt(1, object.getId());
@@ -64,6 +77,13 @@ public class ObjectDAO extends DAO<OObject> {
         return object;
     }
 
+    /**
+     * update the certain line in the table
+     *
+     * @param object what we add to the table instead of what we have
+     * @return improved object
+     * @throws SQLException
+     */
     @Override
     public OObject update(OObject object) throws SQLException {
         if (object.getId() == -1)
@@ -77,6 +97,13 @@ public class ObjectDAO extends DAO<OObject> {
         return object;
     }
 
+    /**
+     * delete the object from the table
+     *
+     * @param object what to delete
+     * @return true if deleted
+     * @throws SQLException
+     */
     @Override
     public boolean delete(OObject object) throws SQLException {
         if (object.getId() == -1)
@@ -88,14 +115,27 @@ public class ObjectDAO extends DAO<OObject> {
         return cash.delete(object);
     }
 
+    /**
+     * get element by id
+     *
+     * @param id of the object
+     * @return the element due to it id
+     * @throws SQLException
+     */
     @Override
     public OObject getById(Object id) throws SQLException {
         return cash.getById(id);
     }
 
+    /**
+     * get the elements from the data base
+     *
+     * @return HashSet of the certain class
+     * @throws SQLException
+     */
     @Override
     protected HashSet<OObject> getFromDatabase() throws SQLException {
-        HashSet<OObject> objects = new HashSet<OObject>();
+        HashSet<OObject> objects = new HashSet<>();
         ResultSet rs = statement.executeQuery("SELECT * FROM object");
         while (rs.next()) {
             OObject d = new OObject(rs.getString(2));

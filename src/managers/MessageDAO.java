@@ -2,15 +2,14 @@ package managers;
 
 import abstractions.Condition;
 import abstractions.DAO;
-import cash.CashDAO;
-import com.sun.org.apache.xml.internal.security.algorithms.MessageDigestAlgorithm;
-import tableClasses.Investment;
+import cash.СacheDAO;
 import tableClasses.Message;
 
 import java.sql.*;
 import java.util.HashSet;
 
 /**
+ * implements pattern DAO to Message Class
  * Created by oleh on 26.11.14.
  */
 public class MessageDAO extends DAO<Message> {
@@ -22,7 +21,7 @@ public class MessageDAO extends DAO<Message> {
 
     private ProfileDAO profileDAOsend;
     private ProfileDAO profileDAOreceip;
-    private CashDAO<Integer, Message> cash;
+    private СacheDAO<Integer, Message> cash;
 
     /**
      * Constructor for message
@@ -43,18 +42,30 @@ public class MessageDAO extends DAO<Message> {
                     + "WHERE id = ?");
             this.delete = connection.prepareStatement("DELETE FROM message WHERE id = ?");
             //load into cash
-            this.cash = new CashDAO<>(getFromDatabase());
+            this.cash = new СacheDAO<>(getFromDatabase());
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Getting method for already read categories
+     * @param condition
+     * @return HashSet of certain class
+     * @throws SQLException if happened something wrong
+     */
     @Override
     public HashSet<Message> get(Condition<Message> condition)
             throws SQLException {
         return cash.get(condition);
     }
 
+    /**
+     * create a line with certain name
+     * @param object which to add to the table
+     * @return improved object
+     * @throws SQLException
+     */
     @Override
     public Message create(Message object) throws SQLException {
         create.setString(2, object.getThemeOfMessage());
@@ -73,6 +84,13 @@ public class MessageDAO extends DAO<Message> {
         return object;
     }
 
+    /**
+     * update the certain line in the table
+     *
+     * @param object what we add to the table instead of what we have
+     * @return improved object
+     * @throws SQLException
+     */
     @Override
     public Message update(Message object) throws SQLException {
         if (object.getId() == -1)
@@ -90,6 +108,13 @@ public class MessageDAO extends DAO<Message> {
         return object;
     }
 
+    /**
+     * delete the object from the table
+     *
+     * @param object what to delete
+     * @return true if deleted
+     * @throws SQLException
+     */
     @Override
     public boolean delete(Message object) throws SQLException {
         if (object.getId() == -1)
@@ -101,14 +126,27 @@ public class MessageDAO extends DAO<Message> {
         return cash.delete(object);
     }
 
+    /**
+     * get element by id
+     *
+     * @param id of the object
+     * @return the element due to it id
+     * @throws SQLException
+     */
     @Override
     public Message getById(Object id) throws SQLException {
         return cash.getById(id);
     }
 
+    /**
+     * get the elements from the data base
+     *
+     * @return HashSet of the certain class
+     * @throws SQLException
+     */
     @Override
     protected HashSet<Message> getFromDatabase() throws SQLException {
-        HashSet<Message> messages = new HashSet<Message>();
+        HashSet<Message> messages = new HashSet<>();
         ResultSet rs = statement.executeQuery("SELECT * FROM message");
         while (rs.next()) {
             Message d = new Message(rs.getString(2), rs.getDate(3), rs.getString(4), profileDAOsend.getById(rs.getInt(5)),
