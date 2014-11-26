@@ -103,7 +103,7 @@ public class OperationDAO extends DAO<Operation> {
         HashSet<Operation> objects = new HashSet<Operation>();
         ResultSet rs = statement.executeQuery("SELECT * FROM object");
         while (rs.next()) {
-            Operation d = new Operation(rs.getString(2), rs.getInt(3), rs.getDate(4),  profileDAO.getByID( rs.getInt(5)) );
+            Operation d = new Operation(rs.getString(2), rs.getInt(3), rs.getDate(4),  profileDAO.getById( rs.getInt(5)) );
             d.setId(rs.getInt(1));
             objects.add(d);
         }
