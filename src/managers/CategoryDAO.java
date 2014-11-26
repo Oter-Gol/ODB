@@ -28,7 +28,7 @@ public class CategoryDAO extends DAO<Category> {
             this.create = connection.prepareStatement("INSERT INTO category"
                     + "(nameOfCategory)"
                     + "VALUES(?)");
-            this.update = connection.prepareStatement("UPDATE cateroy SET "
+            this.update = connection.prepareStatement("UPDATE categoty SET "
                     + "nameOfCategory = ? "
                     + "WHERE id = ?");
             this.delete = connection.prepareStatement("DELETE FROM category WHERE id = ?");
@@ -51,7 +51,7 @@ public class CategoryDAO extends DAO<Category> {
         if (create.executeUpdate() != 1) {
             throw new IllegalStateException();
         }
-        ResultSet rs = statement.executeQuery("SELECT Max(id) FROM discount");
+        ResultSet rs = statement.executeQuery("SELECT Max(id) FROM category");
         rs.next();
         object.setId(rs.getInt(1));
         //create in cash
