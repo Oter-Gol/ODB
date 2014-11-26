@@ -1,26 +1,30 @@
 package tableClasses;
 
+import managers.AbstractEntity;
+
+import java.sql.Date;
+
 /**
  * Created by oleh on 25.11.14.
  */
-public class Operation {
+public class Operation extends AbstractEntity<Integer> {
     private Profile profile;
     private String typeOfOperation;
     private double sum;
-    private String dateOfOperation;
+    private Date dateOfOperation;
 
-    public Operation(Profile profile, String typeOfOperation, double sum, String dateOfOperation) {
+    public Operation(String typeOfOperation, double sum, Date dateOfOperation, Profile profile ) {
         this.profile = profile;
         this.typeOfOperation = typeOfOperation;
         this.sum = sum;
         this.dateOfOperation = dateOfOperation;
     }
 
-    public String getDateOfOperation() {
+    public Date getDateOfOperation() {
         return dateOfOperation;
     }
 
-    public void setDateOfOperation(String dateOfOperation) {
+    public void setDateOfOperation(Date dateOfOperation) {
         this.dateOfOperation = dateOfOperation;
     }
 
