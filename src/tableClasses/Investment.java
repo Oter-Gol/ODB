@@ -1,9 +1,11 @@
 package tableClasses;
 
+import managers.AbstractEntity;
+
 /**
  * Created by oleh on 25.11.14.
  */
-public class Investment {
+public class Investment extends AbstractEntity<Integer>{
     private Profile profile;
     private Object object;
     private String contractNumber;
