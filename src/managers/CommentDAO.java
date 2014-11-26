@@ -28,10 +28,10 @@ public class CommentDAO extends DAO<Comment> {
             this.create = connection.prepareStatement("INSERT INTO comment"
                     + "(branchOfForum, dateOfChange, timeOfChange, textOfComment)"
                     + "VALUES(?,?,?,?)");
-            this.update = connection.prepareStatement("UPDATE category SET "
+            this.update = connection.prepareStatement("UPDATE comment SET "
                     + "branchOfForum = ?, dateOfChange = ?, timeOfChange = ?, textOfComment = ? "
                     + "WHERE id = ?");
-            this.delete = connection.prepareStatement("DELETE FROM category WHERE id = ?");
+            this.delete = connection.prepareStatement("DELETE FROM comment WHERE id = ?");
             //load into cash
             this.cash = new CashDAO<>(getFromDatabase());
         } catch (SQLException e) {
@@ -47,14 +47,14 @@ public class CommentDAO extends DAO<Comment> {
 
     @Override
     public Comment create(Comment object) throws SQLException {
-        create.setString(1, object.getBranchOfForum());
-        create.setString(2, object.getDateOfChange());
-        create.setString(3, object.getTextOfComment());
+        create.setString(2, object.getBranchOfForum());
+        create.setString(3, object.getDateOfChange());
         create.setString(4, object.getTextOfComment());
+        create.setString(5, object.getTextOfComment());
         if (create.executeUpdate() != 1) {
             throw new IllegalStateException();
         }
-        ResultSet rs = statement.executeQuery("SELECT Max(id) FROM discount");
+        ResultSet rs = statement.executeQuery("SELECT Max(id) FROM comment");
         rs.next();
         object.setId(rs.getInt(1));
         //create in cash
@@ -66,11 +66,11 @@ public class CommentDAO extends DAO<Comment> {
     public Comment update(Comment object) throws SQLException {
         if (object.getId() == -1)
             throw new IllegalStateException();
-        update.setString(1, object.getBranchOfForum());
-        update.setString(2, object.getDateOfChange() );
-        update.setString(3, object.getTextOfComment() );
-        update.setString(4, object.getTextOfComment());
-        update.setInt(5, object.getId());
+        update.setString(2, object.getBranchOfForum());
+        update.setString(3, object.getDateOfChange() );
+        update.setString(4, object.getTextOfComment() );
+        update.setString(5, object.getTextOfComment());
+        update.setInt(1, object.getId());
         if (update.executeUpdate() != 1)
             throw new IllegalStateException();
         //update in cash

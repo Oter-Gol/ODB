@@ -7,12 +7,12 @@ import managers.AbstractEntity;
  */
 public class Investment extends AbstractEntity<Integer>{
     private Profile profile;
-    private Object object;
+    private OObject oobject;
     private String contractNumber;
 
-    public Investment(Profile profile, Object object, String contractNumber) {
+    public Investment(Profile profile, OObject oobject, String contractNumber) {
         this.profile = profile;
-        this.object = object;
+        this.oobject = oobject;
         this.contractNumber = contractNumber;
     }
 
@@ -24,12 +24,12 @@ public class Investment extends AbstractEntity<Integer>{
         this.profile = profile;
     }
 
-    public Object getObject() {
-        return object;
+    public OObject getOObject() {
+        return oobject;
     }
 
-    public void setObject(Object object) {
-        this.object = object;
+    public void setOObject(OObject oobject) {
+        this.oobject = oobject;
     }
 
     public String getContractNumber() {

@@ -64,7 +64,7 @@ public class ObjectDAO extends DAO<OObject> {
         if (object.getId() == -1)
             throw new IllegalStateException();
         update.setString(1, object.getName());
-        update.setInt(5, object.getId());
+        update.setInt(0, object.getId());
         if (update.executeUpdate() != 1)
             throw new IllegalStateException();
         //update in cash

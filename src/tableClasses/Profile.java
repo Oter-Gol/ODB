@@ -1,9 +1,11 @@
 package tableClasses;
 
+import managers.AbstractEntity;
+
 /**
  * Created by oleh on 25.11.14.
  */
-public class Profile {
+public class Profile extends AbstractEntity<Integer> {
     private String login;
     private String password;
     private Category category;
