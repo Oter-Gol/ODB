@@ -10,6 +10,14 @@ public class Message {
     private Profile sender;
     private Profile recipient;
 
+    public Message(String themeOfMessage, String dateOfSending, String textOfMesssage, Profile sender, Profile recipient) {
+        this.themeOfMessage = themeOfMessage;
+        this.dateOfSending = dateOfSending;
+        this.textOfMesssage = textOfMesssage;
+        this.sender = sender;
+        this.recipient = recipient;
+    }
+
     public String getThemeOfMessage() {
         return themeOfMessage;
     }

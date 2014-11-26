@@ -8,6 +8,12 @@ public class Investment {
     private Object object;
     private String contractNumber;
 
+    public Investment(Profile profile, Object object, String contractNumber) {
+        this.profile = profile;
+        this.object = object;
+        this.contractNumber = contractNumber;
+    }
+
     public Profile getProfile() {
         return profile;
     }

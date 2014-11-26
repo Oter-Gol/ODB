@@ -7,6 +7,10 @@ package tableClasses;
 public class Category {
     private String nameOfCategory;
 
+    public Category(String nameOfCategory) {
+        this.nameOfCategory = nameOfCategory;
+    }
+
     /**
      * get name of category
      * @return field nameOfCategory

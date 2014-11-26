@@ -9,6 +9,13 @@ public class Operation {
     private double sum;
     private String dateOfOperation;
 
+    public Operation(Profile profile, String typeOfOperation, double sum, String dateOfOperation) {
+        this.profile = profile;
+        this.typeOfOperation = typeOfOperation;
+        this.sum = sum;
+        this.dateOfOperation = dateOfOperation;
+    }
+
     public String getDateOfOperation() {
         return dateOfOperation;
     }
