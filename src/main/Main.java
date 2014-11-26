@@ -1,4 +1,7 @@
-package tableClasses;
+package main;
+
+
+import access.MySQLAccess;
 
 /**
  * Created by oleh on 19.11.14.

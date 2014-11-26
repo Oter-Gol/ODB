@@ -1,4 +1,4 @@
-package tableClasses;
+package access;
 
 import java.io.Closeable;
 import java.sql.*;
