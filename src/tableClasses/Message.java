@@ -1,19 +1,23 @@
 package tableClasses;
 
+import managers.AbstractEntity;
+
+import java.sql.Date;
+
 /**
  * Created by oleh on 25.11.14.
  */
-public class Message {
+public class Message extends AbstractEntity<Integer> {
     private String themeOfMessage;
-    private String dateOfSending;
-    private String textOfMesssage;
+    private Date dateOfSending;
+    private String textOfMessage;
     private Profile sender;
     private Profile recipient;
 
-    public Message(String themeOfMessage, String dateOfSending, String textOfMesssage, Profile sender, Profile recipient) {
+    public Message(String themeOfMessage, Date dateOfSending, String textOfMessage, Profile sender, Profile recipient) {
         this.themeOfMessage = themeOfMessage;
         this.dateOfSending = dateOfSending;
-        this.textOfMesssage = textOfMesssage;
+        this.textOfMessage = textOfMessage;
         this.sender = sender;
         this.recipient = recipient;
     }
@@ -26,20 +30,20 @@ public class Message {
         this.themeOfMessage = themeOfMessage;
     }
 
-    public String getDateOfSending() {
+    public Date getDateOfSending() {
         return dateOfSending;
     }
 
-    public void setDateOfSending(String dateOfSending) {
+    public void setDateOfSending(Date dateOfSending) {
         this.dateOfSending = dateOfSending;
     }
 
     public String getTextOfMesssage() {
-        return textOfMesssage;
+        return textOfMessage;
     }
 
     public void setTextOfMesssage(String textOfMesssage) {
-        this.textOfMesssage = textOfMesssage;
+        this.textOfMessage = textOfMesssage;
     }
 
     public Profile getSender() {

@@ -9,6 +9,8 @@ public class OObject extends AbstractEntity<Integer> {
     private String name;
 
     public OObject(String name) {
+        super();
+        setId(-1);
         this.name = name;
     }
 

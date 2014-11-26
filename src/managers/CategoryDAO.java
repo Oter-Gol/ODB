@@ -28,7 +28,7 @@ public class CategoryDAO extends DAO<Category> {
             this.create = connection.prepareStatement("INSERT INTO category"
                     + "(nameOfCategory)"
                     + "VALUES(?)");
-            this.update = connection.prepareStatement("UPDATE categoty SET "
+            this.update = connection.prepareStatement("UPDATE cateroy SET "
                     + "nameOfCategory = ? "
                     + "WHERE id = ?");
             this.delete = connection.prepareStatement("DELETE FROM category WHERE id = ?");
@@ -47,11 +47,11 @@ public class CategoryDAO extends DAO<Category> {
 
     @Override
     public Category create(Category object) throws SQLException {
-        create.setString(1, object.getNameOfCategory());
+        create.setString(2, object.getNameOfCategory());
         if (create.executeUpdate() != 1) {
             throw new IllegalStateException();
         }
-        ResultSet rs = statement.executeQuery("SELECT Max(id) FROM category");
+        ResultSet rs = statement.executeQuery("SELECT Max(id) FROM discount");
         rs.next();
         object.setId(rs.getInt(1));
         //create in cash
@@ -63,8 +63,8 @@ public class CategoryDAO extends DAO<Category> {
     public Category update(Category object) throws SQLException {
         if (object.getId() == -1)
             throw new IllegalStateException();
-        update.setString(1, object.getNameOfCategory());
-        update.setInt(5, object.getId());
+        update.setString(2, object.getNameOfCategory());
+        update.setInt(1, object.getId());
         if (update.executeUpdate() != 1)
             throw new IllegalStateException();
         //update in cash

@@ -1,16 +1,18 @@
 package tableClasses;
 
+import managers.AbstractEntity;
+
 /**
  * Created by oleh on 25.11.14.
  */
-public class Investment {
+public class Investment extends AbstractEntity<Integer>{
     private Profile profile;
-    private OObject OObject;
+    private OObject oobject;
     private String contractNumber;
 
-    public Investment(Profile profile, OObject OObject, String contractNumber) {
+    public Investment(Profile profile, OObject oobject, String contractNumber) {
         this.profile = profile;
-        this.OObject = OObject;
+        this.oobject = oobject;
         this.contractNumber = contractNumber;
     }
 
@@ -23,11 +25,11 @@ public class Investment {
     }
 
     public OObject getOObject() {
-        return OObject;
+        return oobject;
     }
 
-    public void setOObject(OObject OObject) {
-        this.OObject = OObject;
+    public void setOObject(OObject oobject) {
+        this.oobject = oobject;
     }
 
     public String getContractNumber() {

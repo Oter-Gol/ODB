@@ -1,10 +1,12 @@
 package tableClasses;
 
+import managers.AbstractEntity;
+
 /**
  * represent the comment table
  * Created by oleh on 25.11.14.
  */
-public class Comment {
+public class Comment extends AbstractEntity<Integer> {
     private String branchOfForum;
     private String dateOfChange;
     private String timeOfChange;

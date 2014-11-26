@@ -47,7 +47,8 @@ public class ObjectDAO extends DAO<OObject> {
 
     @Override
     public OObject create(OObject object) throws SQLException {
-        create.setString(1, object.getName());
+        create.setString(1, object.getId()));
+        create.setString(2, object.getName());
         if (create.executeUpdate() != 1) {
             throw new IllegalStateException();
         }
@@ -64,7 +65,7 @@ public class ObjectDAO extends DAO<OObject> {
         if (object.getId() == -1)
             throw new IllegalStateException();
         update.setString(2, object.getName());
-        update.setInt(5, object.getId());
+        update.setInt(1, object.getId());
         if (update.executeUpdate() != 1)
             throw new IllegalStateException();
         //update in cash
